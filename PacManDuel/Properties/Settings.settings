@@ -1,0 +1,72 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PacManDuel.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MazeWidth" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">19</Value>
+    </Setting>
+    <Setting Name="MazeHeight" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="MazeCenterX" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="MazeCenterY" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="SymbolPlayerA" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">A</Value>
+    </Setting>
+    <Setting Name="SymbolPlayerB" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">B</Value>
+    </Setting>
+    <Setting Name="SymbolWall" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">#</Value>
+    </Setting>
+    <Setting Name="SymbolPill" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">.</Value>
+    </Setting>
+    <Setting Name="SymbolPowerPill" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">*</Value>
+    </Setting>
+    <Setting Name="SymbolPoisonPill" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)">!</Value>
+    </Setting>
+    <Setting Name="SymbolEmpty" Type="System.Char" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SettingMaxTurnsWithNoPointsScored" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="SettingPointsPerPill" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="SettingPointsPerBonusPill" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="SettingBotOutputFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">game.state</Value>
+    </Setting>
+    <Setting Name="SettingBotOutputTimeoutSeconds" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="SettingInitialMazeFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">initial.state</Value>
+    </Setting>
+    <Setting Name="SettingGamePlayFile" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">out.state</Value>
+    </Setting>
+    <Setting Name="SettingPrimaryDriveName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:</Value>
+    </Setting>
+    <Setting Name="SettingReplayFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">replay</Value>
+    </Setting>
+    <Setting Name="SettingMatchLogFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">match.log</Value>
+    </Setting>
+    <Setting Name="SettingStateFileExtension" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.state</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
