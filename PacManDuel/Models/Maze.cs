@@ -18,11 +18,21 @@ namespace PacManDuel.Models
             try
             {
                 _map = new char[Properties.Settings.Default.MazeHeight][];
-                var fileContents = System.IO.File.ReadAllText(filePath);
+                var fileLines = System.IO.File.ReadAllLines(filePath);
+                if (fileLines.Length != Properties.Settings.Default.MazeHeight)
+                {
+                    throw new UnreadableMazeException("File should be " + Properties.Settings.Default.MazeHeight
+                        + " lines, but is " + fileLines.Length + " lines");
+                }
                 var rowCount = 0;
-                foreach (var row in Regex.Split(fileContents, "\n"))
+                foreach (var row in fileLines)
                 {
                     _map[rowCount] = row.ToCharArray();
+                    if (_map[rowCount].Length != Properties.Settings.Default.MazeWidth)
+                    {
+                        throw new UnreadableMazeException("Line " + (rowCount+1) + " is " + _map[rowCount].Length
+                            + " characters wide, but should be " + Properties.Settings.Default.MazeWidth);
+                    }
                     rowCount++;
                 }
             }
@@ -49,6 +59,13 @@ namespace PacManDuel.Models
         public char GetSymbol(int x, int y)
         {
             return _map[x][y];
+        }
+
+        public char GetSymbol(Point p)
+        {
+            if (p.X < 0 || p.Y < 0 || p.X >= Properties.Settings.Default.MazeHeight || p.Y >= Properties.Settings.Default.MazeWidth)
+                return 'B'; // Border
+            return _map[p.X][p.Y];
         }
 
         public void SetSymbol(int x, int y, char symbol)

@@ -40,19 +40,21 @@ namespace PacManDuel.Models
                 StartInfo =
                 {
                     WorkingDirectory = _workingPath,
-                    FileName = _executableFileName,
-                    Arguments = "\"" + outputFilePath + "\"",
+                    FileName = _workingPath + "\\" + _executableFileName,
+                    Arguments = "\"" + outputFilePath + "\"" + " >> botlogs_capture.txt 2>&1",
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden
                 }
             };
+
             p.Start();
             var attemptFetchingMaze = true;
             while (attemptFetchingMaze)
             {
                 if (File.Exists(playerOutputFilePath))
                 {
-                    if(!p.HasExited) p.Kill();
+                    Thread.Sleep(50); // Allow file write to complete, otherwise might get permission exception or corrupt file
+                    if (!p.HasExited) p.Kill();
                     try
                     {
                         var mazeFromPlayer = new Maze(playerOutputFilePath);

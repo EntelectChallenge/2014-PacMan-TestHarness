@@ -115,7 +115,9 @@ namespace PacManDuel.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public char SymbolEmpty {
+        [global::System.Configuration.DefaultSettingValueAttribute(" ")]
+        public char SymbolEmpty
+        {
             get {
                 return ((char)(this["SymbolEmpty"]));
             }

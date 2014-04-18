@@ -62,6 +62,11 @@ namespace PacManDuel.Models
                     _maze.WriteMaze(gamePlayDirectoryPath + "\\" + Properties.Settings.Default.SettingGamePlayFile);
                     CreateIterationStateFile(folderPath);
                     _iteration++;
+                    foreach (var player in _playerPool.GetPlayers())
+                    {
+                        Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() + "  ");
+                    }
+                    Console.WriteLine();
                     _maze.Print();
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
@@ -123,7 +128,7 @@ namespace PacManDuel.Models
         private Enums.MazeValidationOutcome GetMazeValidationOutcome(StreamWriter logFile, Maze mazeFromPlayer)
         {
             logFile.WriteLine("[GAME] : Received maze from player " + _currentPlayer.GetPlayerName());
-            var mazeValidationOutcome = (MazeValidator.ValidateMaze(mazeFromPlayer, _maze));
+            var mazeValidationOutcome = (MazeValidator.ValidateMaze(mazeFromPlayer, _maze, logFile));
             logFile.WriteLine("[MAZE] : " + Enum.GetName(typeof (Enums.MazeValidationOutcome), mazeValidationOutcome));
             return mazeValidationOutcome;
         }
