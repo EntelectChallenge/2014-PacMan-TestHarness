@@ -23,12 +23,12 @@ namespace PacManDuel.Helpers
             if (_numberOfTurnsWithNoPointsGained > Properties.Settings.Default.SettingMaxTurnsWithNoPointsScored)
                 return Enums.GameOutcome.NoScoringMaxed;
 
-            return (int) Enums.GameOutcome.ProceedToNextRound;
+            return Enums.GameOutcome.ProceedToNextRound;
         }
 
         private void ProcessTurnOutcome(Enums.TurnOutcome turnOutcome)
         {
-            if (!turnOutcome.Equals(Enums.TurnOutcome.MoveMadeAndPointScored))
+            if (turnOutcome != Enums.TurnOutcome.MoveMadeAndPointScored)
                 _numberOfTurnsWithNoPointsGained++;
             else
                 _numberOfTurnsWithNoPointsGained = 0;

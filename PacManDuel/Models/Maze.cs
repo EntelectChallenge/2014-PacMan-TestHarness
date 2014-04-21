@@ -94,10 +94,10 @@ namespace PacManDuel.Models
             {
                 for (var y = 0; y < Properties.Settings.Default.MazeWidth; y++)
                 {
-                    if (_map[x][y].Equals(Properties.Settings.Default.SymbolPlayerA))
+                    if (_map[x][y] == Properties.Settings.Default.SymbolPlayerA)
                     {
                         _map[x][y] = Properties.Settings.Default.SymbolPlayerB;
-                    } else if (_map[x][y].Equals(Properties.Settings.Default.SymbolPlayerB))
+                    } else if (_map[x][y] == Properties.Settings.Default.SymbolPlayerB)
                     {
                         _map[x][y] = Properties.Settings.Default.SymbolPlayerA;
                     }
@@ -116,7 +116,7 @@ namespace PacManDuel.Models
             {
                 for (var y = 0; y < Properties.Settings.Default.MazeWidth; y++)
                 {
-                    if (_map[x][y].Equals(symbol))
+                    if (_map[x][y] == symbol)
                     {
                         return new Point(x, y);
                     }

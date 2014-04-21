@@ -8,7 +8,7 @@ namespace PacManDuel.Services
     {
         public static Player DetermineWinner(PlayerPool playerPool)
         {
-            if (!playerPool.GetPlayers()[0].GetScore().Equals(playerPool.GetPlayers()[1].GetScore()))
+            if (playerPool.GetPlayers()[0].GetScore() != playerPool.GetPlayers()[1].GetScore())
                 return playerPool.GetPlayers().OrderByDescending(x => x.GetScore()).First();
             return null;
         }

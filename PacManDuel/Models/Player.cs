@@ -48,6 +48,13 @@ namespace PacManDuel.Models
             };
 
             p.Start();
+            try {
+                startTime = p.StartTime; // Adjust for actual start time of process
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             var attemptFetchingMaze = true;
             while (attemptFetchingMaze)
             {
@@ -100,6 +107,11 @@ namespace PacManDuel.Models
         public String GetPlayerName()
         {
             return _playerName;
+        }
+
+        public String GetPlayerPath()
+        {
+            return _workingPath;
         }
 
         public Point GetCurrentPosition()

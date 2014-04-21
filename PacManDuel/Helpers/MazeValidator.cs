@@ -35,7 +35,7 @@ namespace PacManDuel.Helpers
                 currentMaze.GetSymbol(previousCoordinateA) != Properties.Settings.Default.SymbolPoisonPill &&
                 currentMaze.GetSymbol(previousCoordinateA) != Properties.Settings.Default.SymbolPlayerB) ||
                 (currentMaze.GetSymbol(previousCoordinateA) == Properties.Settings.Default.SymbolPlayerB &&
-                currentMaze.GetSymbol(center) != Properties.Settings.Default.SymbolPlayerB))
+                previousMaze.GetSymbol(center) != Properties.Settings.Default.SymbolPlayerB))
             {
                 logFile.WriteLine("[Validator] : Symbol at previous location is: " + currentMaze.GetSymbol(previousCoordinateA));
                 return false;
@@ -111,7 +111,7 @@ namespace PacManDuel.Helpers
             {
                 for (var y = 0; y < Properties.Settings.Default.MazeWidth; y++)
                 {
-                    if (!currentMaze.GetSymbol(x, y).Equals(previousMaze.GetSymbol(x, y)))
+                    if (currentMaze.GetSymbol(x, y) != previousMaze.GetSymbol(x, y))
                         difference++;
                 }
             }
@@ -133,34 +133,34 @@ namespace PacManDuel.Helpers
             var moveList = new List<Point>();
             // Right
             if (previousCoordinate.Y + 1 < Properties.Settings.Default.MazeWidth)
-                if (!previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y + 1).Equals(Properties.Settings.Default.SymbolWall) &&
+                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y + 1) != Properties.Settings.Default.SymbolWall &&
                     !WasInRespawnZone(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X, previousCoordinate.Y + 1));
 
             // Left
             if (previousCoordinate.Y - 1 >= 0)
-                if (!previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y - 1).Equals(Properties.Settings.Default.SymbolWall) &&
+                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y - 1) != Properties.Settings.Default.SymbolWall &&
                     !WasInRespawnZone(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X, previousCoordinate.Y - 1));
 
             // Down
             if (previousCoordinate.X + 1 < Properties.Settings.Default.MazeHeight)
-                if (!previousMaze.GetSymbol(previousCoordinate.X + 1, previousCoordinate.Y).Equals(Properties.Settings.Default.SymbolWall) &&
+                if (previousMaze.GetSymbol(previousCoordinate.X + 1, previousCoordinate.Y) != Properties.Settings.Default.SymbolWall &&
                     !WasInRespawnEntranceA(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X + 1, previousCoordinate.Y));
 
             // Up
             if (previousCoordinate.X - 1 >= 0)
-                if (!previousMaze.GetSymbol(previousCoordinate.X - 1, previousCoordinate.Y).Equals(Properties.Settings.Default.SymbolWall) &&
+                if (previousMaze.GetSymbol(previousCoordinate.X - 1, previousCoordinate.Y) != Properties.Settings.Default.SymbolWall &&
                     !WasInRespawnEntranceB(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X - 1, previousCoordinate.Y));
 
             // Wrap right
-            if (previousCoordinate.X.Equals(Properties.Settings.Default.MazeHeight / 2 - 1) && previousCoordinate.Y.Equals(Properties.Settings.Default.MazeWidth - 1))
+            if (previousCoordinate.X == (Properties.Settings.Default.MazeHeight / 2 - 1) && previousCoordinate.Y == (Properties.Settings.Default.MazeWidth - 1))
                 moveList.Add(new Point(Properties.Settings.Default.MazeHeight / 2 - 1, 0));
 
             // Wrap left
-            if (previousCoordinate.X.Equals(Properties.Settings.Default.MazeHeight / 2 - 1) && previousCoordinate.Y.Equals(0))
+            if (previousCoordinate.X == (Properties.Settings.Default.MazeHeight / 2 - 1) && previousCoordinate.Y == 0)
                 moveList.Add(new Point(Properties.Settings.Default.MazeHeight / 2 - 1, Properties.Settings.Default.MazeWidth - 1));
 
             return moveList;
