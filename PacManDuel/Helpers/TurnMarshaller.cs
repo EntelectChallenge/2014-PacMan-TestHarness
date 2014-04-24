@@ -1,9 +1,8 @@
 ﻿using System.Drawing;
-using NLog;
 using PacManDuel.Models;
 using PacManDuel.Shared;
 
-namespace PacManDuel.Services
+namespace PacManDuel.Helpers
 {
     class TurnMarshaller
     {
@@ -55,7 +54,7 @@ namespace PacManDuel.Services
 
         private static bool IsMoveMadeAndScoredBonusPoint(Maze previousMaze, Point currentPosition)
         {
-            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Properties.Settings.Default.SymbolPowerPill;
+            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Properties.Settings.Default.SymbolBonusPill;
         }
 
         private static bool IsMoveMadeAndDiedFromPoisonPill(Maze previousMaze, Point currentPosition)
@@ -65,6 +64,7 @@ namespace PacManDuel.Services
 
         private static bool IsMoveMadeAndKilledOpponent(Point currentPosition, Point opponentPosition)
         {
+            if (opponentPosition.IsEmpty) return false;
             return currentPosition.X == opponentPosition.X && currentPosition.Y == opponentPosition.Y;
         }
 

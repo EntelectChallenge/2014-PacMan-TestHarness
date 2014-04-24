@@ -37,7 +37,7 @@ namespace PacManDuel.Helpers
         public static bool IsOutOfPills(Maze maze)
         {
             var flatFormatMaze = maze.ToFlatFormatString();
-            return !(flatFormatMaze.Contains(Properties.Settings.Default.SymbolPill) || flatFormatMaze.Contains(Properties.Settings.Default.SymbolPowerPill));
+            return !(flatFormatMaze.Contains(Properties.Settings.Default.SymbolPill) || flatFormatMaze.Contains(Properties.Settings.Default.SymbolBonusPill));
         }
 
         public String GetTurnsWithoutPointsInfo()

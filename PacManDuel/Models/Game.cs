@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO;
 using PacManDuel.Helpers;
-using PacManDuel.Services;
 using PacManDuel.Shared;
 
 namespace PacManDuel.Models
@@ -52,8 +51,9 @@ namespace PacManDuel.Models
                         var turnOutcome = GetTurnOutcome(mazeFromPlayer, currentPosition, previousPosition, opponentPosition, logFile);
                         if (turnOutcome != Enums.TurnOutcome.MoveMadeAndDroppedPoisonPillIllegally)
                         {
+                            RegenerateOpponentIfDead(opponentPosition, mazeFromPlayer);
                             gameOutcome = GetGameOutcome(mazeFromPlayer, logFile, gameOutcome, turnOutcome);
-                            winner = DeterminIfWinnerWinner(gameOutcome, mazeFromPlayer, winner);
+                            winner = DeterminIfWinner(gameOutcome, mazeFromPlayer, winner);
                         }
                         else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
                     }
@@ -95,7 +95,7 @@ namespace PacManDuel.Models
             return gameOutcome;
         }
 
-        private Player DeterminIfWinnerWinner(Enums.GameOutcome gameOutcome, Maze mazeFromPlayer, Player winner)
+        private Player DeterminIfWinner(Enums.GameOutcome gameOutcome, Maze mazeFromPlayer, Player winner)
         {
             mazeFromPlayer.SwapPlayerSymbols();
             _maze = mazeFromPlayer;
@@ -164,6 +164,12 @@ namespace PacManDuel.Models
                 file.WriteLine("GAME: DRAW," + gameOutcome + "," + _iteration);
             else
                 file.WriteLine("GAME: " + winner.GetSymbol() + "," + gameOutcome + "," + _iteration);
+        }
+
+        private static void RegenerateOpponentIfDead(Point opponentPosition, Maze mazeFromPlayer)
+        {
+            if (opponentPosition.IsEmpty)
+                mazeFromPlayer.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Properties.Settings.Default.SymbolPlayerB);
         }
 
     }

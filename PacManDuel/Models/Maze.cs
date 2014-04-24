@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using NLog;
 using PacManDuel.Exceptions;
-using PacManDuel.Shared;
 
 namespace PacManDuel.Models
 {
@@ -63,8 +58,8 @@ namespace PacManDuel.Models
 
         public char GetSymbol(Point p)
         {
-            if (p.X < 0 || p.Y < 0 || p.X >= Properties.Settings.Default.MazeHeight || p.Y >= Properties.Settings.Default.MazeWidth)
-                return 'B'; // Border
+            /*if (p.X < 0 || p.Y < 0 || p.X >= Properties.Settings.Default.MazeHeight || p.Y >= Properties.Settings.Default.MazeWidth)
+                return 'B'; // Border*/
             return _map[p.X][p.Y];
         }
 

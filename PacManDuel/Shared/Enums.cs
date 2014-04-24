@@ -7,7 +7,8 @@
         {
             ValidMaze = 0,
             InvalidMazeTooManyChanges = 1,
-            InvalidMazeIllegalMoveMade = 2
+            InvalidMazeIllegalMoveMade = 2,
+            InvalidMazePillDroppedInRespawnZone = 3
         }
 
         public enum TurnOutcome

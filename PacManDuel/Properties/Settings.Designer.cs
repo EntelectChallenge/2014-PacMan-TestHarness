@@ -98,9 +98,9 @@ namespace PacManDuel.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("*")]
-        public char SymbolPowerPill {
+        public char SymbolBonusPill {
             get {
-                return ((char)(this["SymbolPowerPill"]));
+                return ((char)(this["SymbolBonusPill"]));
             }
         }
         
@@ -115,9 +115,7 @@ namespace PacManDuel.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(" ")]
-        public char SymbolEmpty
-        {
+        public char SymbolEmpty {
             get {
                 return ((char)(this["SymbolEmpty"]));
             }
