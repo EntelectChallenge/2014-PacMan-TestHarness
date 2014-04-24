@@ -13,14 +13,21 @@ If you find any bugs or have any concerns, please email challenge@entelect.co.za
 Release Notes v1.1
 
 +Added better argument validation and help options.
+
 +Added time buffer to reduce chance of reading state while a bot is writing it.
+
 +Added enhanced output for further help with debugging.
+
 +Added logic for edge case rule where players die consecutively.
+
 *Fixed rule to disallow dropping poison pills in the respawn zone.
+
 *General refactoring.
 
 A special thanks to the guys who submitted enhancements. After inspection, we merged some of their changes with our own to create this release.
+
 +Gustav
+
 +hwiechers
 
 -----------------------
