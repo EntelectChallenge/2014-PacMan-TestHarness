@@ -12,6 +12,15 @@ If you find any bugs or have any concerns, please email challenge@entelect.co.za
 -----------------------
 Release Notes v1.1
 
+*Moved symbols from project settings to constants for better character support.
+
+Thanks for notifying us about the space issue:
+
++hwiechers
+
+-----------------------
+Release Notes v1.1
+
 +Added better argument validation and help options.
 
 +Added time buffer to reduce chance of reading state while a bot is writing it.
