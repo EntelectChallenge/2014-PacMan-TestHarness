@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using PacManDuel.Exceptions;
+using PacManDuel.Shared;
 
 namespace PacManDuel.Models
 {
@@ -89,12 +90,12 @@ namespace PacManDuel.Models
             {
                 for (var y = 0; y < Properties.Settings.Default.MazeWidth; y++)
                 {
-                    if (_map[x][y] == Properties.Settings.Default.SymbolPlayerA)
+                    if (_map[x][y] == Symbols.SYMBOL_PLAYER_A)
                     {
-                        _map[x][y] = Properties.Settings.Default.SymbolPlayerB;
-                    } else if (_map[x][y] == Properties.Settings.Default.SymbolPlayerB)
+                        _map[x][y] = Symbols.SYMBOL_PLAYER_B;
+                    } else if (_map[x][y] == Symbols.SYMBOL_PLAYER_B)
                     {
-                        _map[x][y] = Properties.Settings.Default.SymbolPlayerA;
+                        _map[x][y] = Symbols.SYMBOL_PLAYER_A;
                     }
                 }
             }

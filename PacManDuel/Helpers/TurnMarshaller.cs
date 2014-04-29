@@ -24,14 +24,14 @@ namespace PacManDuel.Helpers
             
             if (IsMoveMadeAndDiedFromPoisonPill(previousMaze, currentPosition))
             {
-                currentMaze.SetSymbol(currentPosition.X, currentPosition.Y, Properties.Settings.Default.SymbolEmpty);
-                currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Properties.Settings.Default.SymbolPlayerA);
+                currentMaze.SetSymbol(currentPosition.X, currentPosition.Y, Symbols.SYMBOL_EMPTY);
+                currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_A);
                 return Enums.TurnOutcome.MoveMadeAndDiedFromPoisonPill;
             }
 
             if (IsMoveMadeAndKilledOpponent(currentPosition, opponentPosition))
             {
-                currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Properties.Settings.Default.SymbolPlayerB);
+                currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_B);
                 return Enums.TurnOutcome.MoveMadeAndKilledOpponent;
             }
 
@@ -49,17 +49,17 @@ namespace PacManDuel.Helpers
 
         private static bool IsMoveMadeAndScoredPoint(Maze previousMaze, Point currentPosition)
         {
-            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Properties.Settings.Default.SymbolPill;
+            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Symbols.SYMBOL_PILL;
         }
 
         private static bool IsMoveMadeAndScoredBonusPoint(Maze previousMaze, Point currentPosition)
         {
-            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Properties.Settings.Default.SymbolBonusPill;
+            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Symbols.SYMBOL_BONUS_PILL;
         }
 
         private static bool IsMoveMadeAndDiedFromPoisonPill(Maze previousMaze, Point currentPosition)
         {
-            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Properties.Settings.Default.SymbolPoisonPill;
+            return previousMaze.GetSymbol(currentPosition.X, currentPosition.Y) == Symbols.SYMBOL_POISON_PILL;
         }
 
         private static bool IsMoveMadeAndKilledOpponent(Point currentPosition, Point opponentPosition)
@@ -70,7 +70,7 @@ namespace PacManDuel.Helpers
 
         private static bool IsMoveMadeAndDroppedPoisonPill(Maze currentMaze, Point previousPosition)
         {
-            return currentMaze.GetSymbol(previousPosition.X, previousPosition.Y) == Properties.Settings.Default.SymbolPoisonPill;
+            return currentMaze.GetSymbol(previousPosition.X, previousPosition.Y) == Symbols.SYMBOL_POISON_PILL;
         }
 
     }

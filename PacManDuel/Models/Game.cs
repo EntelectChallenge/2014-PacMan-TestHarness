@@ -45,9 +45,9 @@ namespace PacManDuel.Models
                     var mazeValidationOutcome = GetMazeValidationOutcome(logFile, mazeFromPlayer);
                     if (mazeValidationOutcome == Enums.MazeValidationOutcome.ValidMaze)
                     {
-                        var opponentPosition = _maze.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerB);
-                        var previousPosition = _maze.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerA);
-                        var currentPosition = mazeFromPlayer.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerA);
+                        var opponentPosition = _maze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_B);
+                        var previousPosition = _maze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
+                        var currentPosition = mazeFromPlayer.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
                         var turnOutcome = GetTurnOutcome(mazeFromPlayer, currentPosition, previousPosition, opponentPosition, logFile);
                         if (turnOutcome != Enums.TurnOutcome.MoveMadeAndDroppedPoisonPillIllegally)
                         {
@@ -169,7 +169,7 @@ namespace PacManDuel.Models
         private static void RegenerateOpponentIfDead(Point opponentPosition, Maze mazeFromPlayer)
         {
             if (opponentPosition.IsEmpty)
-                mazeFromPlayer.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Properties.Settings.Default.SymbolPlayerB);
+                mazeFromPlayer.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_B);
         }
 
     }

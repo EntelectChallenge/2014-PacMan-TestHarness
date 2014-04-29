@@ -14,27 +14,6 @@
     <Setting Name="MazeCenterY" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">9</Value>
     </Setting>
-    <Setting Name="SymbolPlayerA" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">A</Value>
-    </Setting>
-    <Setting Name="SymbolPlayerB" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">B</Value>
-    </Setting>
-    <Setting Name="SymbolWall" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">#</Value>
-    </Setting>
-    <Setting Name="SymbolPill" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">.</Value>
-    </Setting>
-    <Setting Name="SymbolBonusPill" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">*</Value>
-    </Setting>
-    <Setting Name="SymbolPoisonPill" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)">!</Value>
-    </Setting>
-    <Setting Name="SymbolEmpty" Type="System.Char" Scope="Application">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="SettingMaxTurnsWithNoPointsScored" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">100</Value>
     </Setting>

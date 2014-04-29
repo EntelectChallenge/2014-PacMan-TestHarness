@@ -26,8 +26,8 @@ namespace PacManDuel.Helpers
 
         private static bool IsPillDroppedInRespawnZone(Maze currentMaze, Maze previousMaze)
         {
-            var previousCoordinateA = previousMaze.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerA);
-            if (currentMaze.GetSymbol(previousCoordinateA) == Properties.Settings.Default.SymbolPoisonPill)
+            var previousCoordinateA = previousMaze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
+            if (currentMaze.GetSymbol(previousCoordinateA) == Symbols.SYMBOL_POISON_PILL)
                 return WasInRespawnZone(previousCoordinateA.X, previousCoordinateA.Y);
             return false;
         }
@@ -57,35 +57,35 @@ namespace PacManDuel.Helpers
 
         private static Boolean IsPossibleMoveMade(Maze currentMaze, Maze previousMaze)
         {
-            var currentPosition = currentMaze.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerA);
+            var currentPosition = currentMaze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
             return GetPossibleMoves(previousMaze).Any(coordinate => coordinate.X.Equals(currentPosition.X) && coordinate.Y.Equals(currentPosition.Y));
         }
 
         private static IEnumerable<Point> GetPossibleMoves(Maze previousMaze)
         {
-            var previousCoordinate = previousMaze.FindCoordinateOf(Properties.Settings.Default.SymbolPlayerA);
+            var previousCoordinate = previousMaze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
             var moveList = new List<Point>();
             // Right
             if (previousCoordinate.Y + 1 < Properties.Settings.Default.MazeWidth)
-                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y + 1) != Properties.Settings.Default.SymbolWall &&
+                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y + 1) != Symbols.SYMBOL_WALL &&
                     !WasInRespawnPoint(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X, previousCoordinate.Y + 1));
 
             // Left
             if (previousCoordinate.Y - 1 >= 0)
-                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y - 1) != Properties.Settings.Default.SymbolWall &&
+                if (previousMaze.GetSymbol(previousCoordinate.X, previousCoordinate.Y - 1) != Symbols.SYMBOL_WALL &&
                     !WasInRespawnPoint(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X, previousCoordinate.Y - 1));
 
             // Down
             if (previousCoordinate.X + 1 < Properties.Settings.Default.MazeHeight)
-                if (previousMaze.GetSymbol(previousCoordinate.X + 1, previousCoordinate.Y) != Properties.Settings.Default.SymbolWall &&
+                if (previousMaze.GetSymbol(previousCoordinate.X + 1, previousCoordinate.Y) != Symbols.SYMBOL_WALL &&
                     !WasInRespawnEntranceA(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X + 1, previousCoordinate.Y));
 
             // Up
             if (previousCoordinate.X - 1 >= 0)
-                if (previousMaze.GetSymbol(previousCoordinate.X - 1, previousCoordinate.Y) != Properties.Settings.Default.SymbolWall &&
+                if (previousMaze.GetSymbol(previousCoordinate.X - 1, previousCoordinate.Y) != Symbols.SYMBOL_WALL &&
                     !WasInRespawnEntranceB(previousCoordinate.X, previousCoordinate.Y))
                     moveList.Add(new Point(previousCoordinate.X - 1, previousCoordinate.Y));
 
