@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -29,7 +29,7 @@ namespace PacManDuel.Models
 
         public Maze GetMove(Maze maze, String outputFilePath, StreamWriter logFile)
         {
-            var playerOutputFilePath = _workingPath + "\\" + Properties.Settings.Default.SettingBotOutputFileName;
+            var playerOutputFilePath = _workingPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingBotOutputFileName;
             File.Delete(playerOutputFilePath);
             var startTime = DateTime.Now;
             var p = new Process
@@ -37,7 +37,7 @@ namespace PacManDuel.Models
                 StartInfo =
                 {
                     WorkingDirectory = _workingPath,
-                    FileName = _workingPath + "\\" + _executableFileName,
+                    FileName = _workingPath + System.IO.Path.DirectorySeparatorChar + _executableFileName,
                     Arguments = "\"" + outputFilePath + "\"" + " >> botlogs_capture.txt 2>&1",
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden

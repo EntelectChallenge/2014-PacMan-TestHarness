@@ -57,7 +57,7 @@ namespace PacManDuel
             var playerA = new Player("botB", playerBPath, playerBBot, 'B');
             var playerB = new Player("botA", playerAPath, playerABot, 'A');
             var game = new Game(playerA, playerB, Properties.Settings.Default.SettingInitialMazeFilePath);
-            var result = game.Run("Match-" + DateTime.UtcNow.ToString("yyyy-MM-dd hh-mm-ss"));
+            var result = game.Run("Match_" + DateTime.UtcNow.ToString("yyyy-MM-dd_hh-mm-ss"));
             games.Add(result);
 
             GameSummary(games);
