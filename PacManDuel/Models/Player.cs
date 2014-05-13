@@ -38,13 +38,26 @@ namespace PacManDuel.Models
                 {
                     WorkingDirectory = _workingPath,
                     FileName = _workingPath + System.IO.Path.DirectorySeparatorChar + _executableFileName,
-                    Arguments = "\"" + outputFilePath + "\"" + " >> botlogs_capture.txt 2>&1",
+                    Arguments = "\"" + outputFilePath + "\"",
                     CreateNoWindow = true,
-                    WindowStyle = ProcessWindowStyle.Hidden
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
                 }
             };
 
             p.Start();
+            System.Diagnostics.DataReceivedEventHandler h = (sender, args) => {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(_workingPath + System.IO.Path.DirectorySeparatorChar + "botlogs_capture.txt", true))
+                {
+                    file.Write(args.Data);
+                }
+            };
+            p.OutputDataReceived  += h;
+            p.ErrorDataReceived  += h;
+            p.BeginOutputReadLine();
+            p.BeginErrorReadLine();
             try {
                 startTime = p.StartTime; // Adjust for actual start time of process
             }
