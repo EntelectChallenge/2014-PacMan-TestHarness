@@ -51,7 +51,8 @@ namespace PacManDuel.Models
             System.Diagnostics.DataReceivedEventHandler h = (sender, args) => {
                 using (System.IO.StreamWriter file = new System.IO.StreamWriter(_workingPath + System.IO.Path.DirectorySeparatorChar + "botlogs_capture.txt", true))
                 {
-                    file.WriteLine(args.Data);
+                    if (!String.IsNullOrEmpty(args.Data)) 
+                        file.WriteLine(args.Data);
                 }
             };
             p.OutputDataReceived  += h;
