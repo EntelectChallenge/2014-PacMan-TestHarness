@@ -53,13 +53,12 @@ namespace PacManDuel.Models
                         {
                             RegenerateOpponentIfDead(opponentPosition, mazeFromPlayer);
                             gameOutcome = GetGameOutcome(mazeFromPlayer, logFile, gameOutcome, turnOutcome);
-                            winner = DeterminIfWinner(gameOutcome, mazeFromPlayer, winner);
+                            winner = DeterminIfWinner(gameOutcome, winner);
                         }
                         else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
                     }
                     else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
                     
-                    _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
                     CreateIterationStateFile(folderPath);
                     _iteration++;
                     foreach (var player in _playerPool.GetPlayers())
@@ -67,7 +66,15 @@ namespace PacManDuel.Models
                         Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() + "  ");
                     }
                     Console.WriteLine();
-                    _maze.Print();
+
+					// Always print the maze from the perspective of the same player.
+					if (_currentPlayer.GetSymbol() == 'A')
+						mazeFromPlayer.Print();
+					mazeFromPlayer.SwapPlayerSymbols();
+					if (_currentPlayer.GetSymbol() != 'A')
+						mazeFromPlayer.Print();
+					_maze = mazeFromPlayer;
+					_maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
             }
@@ -95,10 +102,8 @@ namespace PacManDuel.Models
             return gameOutcome;
         }
 
-        private Player DeterminIfWinner(Enums.GameOutcome gameOutcome, Maze mazeFromPlayer, Player winner)
+        private Player DeterminIfWinner(Enums.GameOutcome gameOutcome, Player winner)
         {
-            mazeFromPlayer.SwapPlayerSymbols();
-            _maze = mazeFromPlayer;
             if (gameOutcome != Enums.GameOutcome.ProceedToNextRound)
             {
                 if (gameOutcome == Enums.GameOutcome.NoScoringMaxed)
