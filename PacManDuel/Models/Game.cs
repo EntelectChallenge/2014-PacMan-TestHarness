@@ -67,14 +67,14 @@ namespace PacManDuel.Models
                     }
                     Console.WriteLine();
 
-					// Always print the maze from the perspective of the same player.
-					if (_currentPlayer.GetSymbol() == 'A')
-						mazeFromPlayer.Print();
-					mazeFromPlayer.SwapPlayerSymbols();
-					if (_currentPlayer.GetSymbol() != 'A')
-						mazeFromPlayer.Print();
-					_maze = mazeFromPlayer;
-					_maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
+                    // Always print the maze from the perspective of the same player.
+                    if (_currentPlayer.GetSymbol() == 'A')
+	                    mazeFromPlayer.Print();
+                    mazeFromPlayer.SwapPlayerSymbols();
+                    if (_currentPlayer.GetSymbol() != 'A')
+	                    mazeFromPlayer.Print();
+                    _maze = mazeFromPlayer;
+                    _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
             }
