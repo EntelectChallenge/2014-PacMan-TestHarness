@@ -53,28 +53,21 @@ namespace PacManDuel.Models
                         {
                             RegenerateOpponentIfDead(opponentPosition, mazeFromPlayer);
                             gameOutcome = GetGameOutcome(mazeFromPlayer, logFile, gameOutcome, turnOutcome);
-                            winner = DeterminIfWinner(gameOutcome, winner);
+                            winner = DeterminIfWinner(gameOutcome, mazeFromPlayer, winner);
                         }
                         else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
                     }
                     else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
-                    
-                    CreateIterationStateFile(folderPath);
+
+                    _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
+                    Maze iterationFileMaze = CreateIterationStateFile(folderPath);
                     _iteration++;
                     foreach (var player in _playerPool.GetPlayers())
                     {
                         Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() + "  ");
                     }
                     Console.WriteLine();
-
-                    // Always print the maze from the perspective of the same player.
-                    if (_currentPlayer.GetSymbol() == 'A')
-	                    mazeFromPlayer.Print();
-                    mazeFromPlayer.SwapPlayerSymbols();
-                    if (_currentPlayer.GetSymbol() != 'A')
-	                    mazeFromPlayer.Print();
-                    _maze = mazeFromPlayer;
-                    _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
+                    iterationFileMaze.Print();
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
             }
@@ -102,8 +95,10 @@ namespace PacManDuel.Models
             return gameOutcome;
         }
 
-        private Player DeterminIfWinner(Enums.GameOutcome gameOutcome, Player winner)
+        private Player DeterminIfWinner(Enums.GameOutcome gameOutcome, Maze mazeFromPlayer, Player winner)
         {
+            mazeFromPlayer.SwapPlayerSymbols();
+            _maze = mazeFromPlayer;
             if (gameOutcome != Enums.GameOutcome.ProceedToNextRound)
             {
                 if (gameOutcome == Enums.GameOutcome.NoScoringMaxed)
@@ -147,7 +142,7 @@ namespace PacManDuel.Models
         }
 
 
-        private void CreateIterationStateFile(String folderPath)
+        private Maze CreateIterationStateFile(String folderPath)
         {
             var replayFile =
                 new StreamWriter(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingReplayFolder + System.IO.Path.DirectorySeparatorChar + "iteration" +
@@ -157,6 +152,7 @@ namespace PacManDuel.Models
                 mazeForFile.SwapPlayerSymbols();
             replayFile.Write(mazeForFile.ToFlatFormatString());
             replayFile.Close();
+            return mazeForFile;
         }
 
         private void CreateMatchInfo(Enums.GameOutcome gameOutcome, Player winner, StreamWriter file)
