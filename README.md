@@ -19,6 +19,7 @@ Release Notes v1.3
 Thanks for your contributions:
 
 +juanheyns
+
 +bhaeussermann
 
 -----------------------
