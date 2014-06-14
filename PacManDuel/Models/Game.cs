@@ -58,16 +58,16 @@ namespace PacManDuel.Models
                         else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
                     }
                     else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
-                    
+
                     _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
-                    CreateIterationStateFile(folderPath);
+                    Maze iterationFileMaze = CreateIterationStateFile(folderPath);
                     _iteration++;
                     foreach (var player in _playerPool.GetPlayers())
                     {
                         Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() + "  ");
                     }
                     Console.WriteLine();
-                    _maze.Print();
+                    iterationFileMaze.Print();
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
             }
@@ -142,7 +142,7 @@ namespace PacManDuel.Models
         }
 
 
-        private void CreateIterationStateFile(String folderPath)
+        private Maze CreateIterationStateFile(String folderPath)
         {
             var replayFile =
                 new StreamWriter(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingReplayFolder + System.IO.Path.DirectorySeparatorChar + "iteration" +
@@ -152,6 +152,7 @@ namespace PacManDuel.Models
                 mazeForFile.SwapPlayerSymbols();
             replayFile.Write(mazeForFile.ToFlatFormatString());
             replayFile.Close();
+            return mazeForFile;
         }
 
         private void CreateMatchInfo(Enums.GameOutcome gameOutcome, Player winner, StreamWriter file)
