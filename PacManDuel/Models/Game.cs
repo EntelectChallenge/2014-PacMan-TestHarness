@@ -99,6 +99,10 @@ namespace PacManDuel.Models
         {
             mazeFromPlayer.SwapPlayerSymbols();
             _maze = mazeFromPlayer;
+            if (_maze.FindCoordinateOf(_secondMazePlayer).IsEmpty)
+            {
+                _maze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, _secondMazePlayer);
+            }
             if (gameOutcome != Enums.GameOutcome.ProceedToNextRound)
             {
                 if (gameOutcome == Enums.GameOutcome.NoScoringMaxed)
