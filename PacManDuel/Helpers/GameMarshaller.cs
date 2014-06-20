@@ -28,7 +28,10 @@ namespace PacManDuel.Helpers
 
         private void ProcessTurnOutcome(Enums.TurnOutcome turnOutcome)
         {
-            if (turnOutcome != Enums.TurnOutcome.MoveMadeAndPointScored)
+            if (turnOutcome != Enums.TurnOutcome.MoveMadeAndPointScored 
+                && turnOutcome != Enums.TurnOutcome.MoveMadeAndBonusPointScored 
+                && turnOutcome != Enums.TurnOutcome.MoveMadePointScoredAndDroppedPoisonPill 
+                && turnOutcome != Enums.TurnOutcome.MoveMadeBonusPointScoredAndDroppedPoisonPill)
                 _numberOfTurnsWithNoPointsGained++;
             else
                 _numberOfTurnsWithNoPointsGained = 0;
