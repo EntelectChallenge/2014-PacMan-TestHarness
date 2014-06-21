@@ -55,29 +55,29 @@ namespace PacManDuel.Models
             };
             p.OutputDataReceived  += h;
             p.ErrorDataReceived  += h;
-			p.Start();
-			p.BeginOutputReadLine();
+            p.Start();
+            p.BeginOutputReadLine();
             p.BeginErrorReadLine();
 			bool didExit = p.WaitForExit(Properties.Settings.Default.SettingBotOutputTimeoutSeconds * 1000);
-			if (!didExit)
-				p.Kill();
+            if (!didExit)
+                p.Kill();
 
-			if (!File.Exists(playerOutputFilePath)) 
-			{
-				logFile.WriteLine("[GAME] : Timeout from player " + _playerName);
-				return null;
-			}
-			try
-			{
-				var mazeFromPlayer = new Maze(playerOutputFilePath);
-				return mazeFromPlayer;
-			}
-			catch (UnreadableMazeException e)
-			{
-				Console.WriteLine(e.ToString());
-				logFile.WriteLine("[GAME] : Unreadable maze from player: " + _playerName);
-			}
-			return null;
+            if (!File.Exists(playerOutputFilePath)) 
+            {
+                logFile.WriteLine("[GAME] : Timeout from player " + _playerName);
+                return null;
+            }
+            try
+            {
+                var mazeFromPlayer = new Maze(playerOutputFilePath);
+                return mazeFromPlayer;
+            }
+            catch (UnreadableMazeException e)
+            {
+                Console.WriteLine(e.ToString());
+                logFile.WriteLine("[GAME] : Unreadable maze from player: " + _playerName);
+            }
+            return null;
         }
 
         public void AddToScore(int score)
