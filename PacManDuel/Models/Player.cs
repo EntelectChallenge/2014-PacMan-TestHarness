@@ -58,7 +58,7 @@ namespace PacManDuel.Models
             p.Start();
             p.BeginOutputReadLine();
             p.BeginErrorReadLine();
-			bool didExit = p.WaitForExit(Properties.Settings.Default.SettingBotOutputTimeoutSeconds * 1000);
+            bool didExit = p.WaitForExit(Properties.Settings.Default.SettingBotOutputTimeoutSeconds * 1000);
             if (!didExit)
                 p.Kill();
 
