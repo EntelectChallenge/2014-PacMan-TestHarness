@@ -13,7 +13,9 @@ If you find any bugs or have any concerns, please email challenge@entelect.co.za
 Release Notes v1.7
 
 +Randomly pick the starting bot.
+
 *Avoid file-in-use-by-another-process IO exception.
+
 *Made harness UNIX friendly.
 
 Thanks for your contributions:
