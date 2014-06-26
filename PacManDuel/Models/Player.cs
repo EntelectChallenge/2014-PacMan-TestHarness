@@ -31,13 +31,23 @@ namespace PacManDuel.Models
         {
             var playerOutputFilePath = _workingPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingBotOutputFileName;
             File.Delete(playerOutputFilePath);
+
+            var processName = _workingPath + System.IO.Path.DirectorySeparatorChar + _executableFileName;
+            var arguments = "\"" + outputFilePath + "\"";
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix)
+            {
+                arguments = processName + " " + arguments;
+                processName = "/bin/bash";
+            }
+            
             var p = new Process
             {
                 StartInfo =
                 {
                     WorkingDirectory = _workingPath,
-                    FileName = _workingPath + System.IO.Path.DirectorySeparatorChar + _executableFileName,
-                    Arguments = "\"" + outputFilePath + "\"",
+                    FileName = processName,
+                    Arguments = arguments,
                     CreateNoWindow = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     UseShellExecute = false,
@@ -62,11 +72,19 @@ namespace PacManDuel.Models
             p.BeginErrorReadLine();
             bool didExit = p.WaitForExit(Properties.Settings.Default.SettingBotOutputTimeoutSeconds * 1000);
             if (!didExit)
+            {
                 p.Kill();
+                logFile.WriteLine("[GAME] : Killed process " + processName);
+            }
+
+            if (p.ExitCode != 0)
+            {
+                logFile.WriteLine("[GAME] : Process exited " + p.ExitCode + " from player " + _playerName);
+            }
 
             if (!File.Exists(playerOutputFilePath)) 
             {
-                logFile.WriteLine("[GAME] : Timeout from player " + _playerName);
+                logFile.WriteLine("[GAME] : No output file from player " + _playerName);
                 return null;
             }
             try
