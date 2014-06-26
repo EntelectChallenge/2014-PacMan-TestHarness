@@ -54,8 +54,22 @@ namespace PacManDuel
 
             var games = new List<GameResult>();
 
-            var playerA = new Player("botB", playerBPath, playerBBot, 'B');
-            var playerB = new Player("botA", playerAPath, playerABot, 'A');
+            Player playerA;
+            Player playerB;
+
+            var random = new Random();
+            var randomPlayer = random.Next(1, 2);
+            if (randomPlayer == 1)
+            {
+                playerA = new Player("botB", playerBPath, playerBBot, 'B');
+                playerB = new Player("botA", playerAPath, playerABot, 'A');
+            }
+            else
+            {
+                playerA = new Player("botB", playerAPath, playerABot, 'B');
+                playerB = new Player("botA", playerBPath, playerBBot, 'A');
+            }
+            
             var game = new Game(playerA, playerB, Properties.Settings.Default.SettingInitialMazeFilePath);
             var result = game.Run("Match_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
             games.Add(result);
