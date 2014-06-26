@@ -19,7 +19,9 @@ Release Notes v1.7
 Thanks for your contributions:
 
 +bhaeussermann
+
 +leonardseymore
+
 +rm2k
 
 -----------------------
