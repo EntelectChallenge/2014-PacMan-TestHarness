@@ -20,7 +20,7 @@ namespace PacManDuel.Models
             _playerPool = new PlayerPool(playerA, playerB);
             _maze = new Maze(pathToInitialMaze);
             _gameMarshaller = new GameMarshaller();
-            _iteration = 1;
+            _iteration = 0;
             _secondMazePlayer = 'A';
         }
 
@@ -35,7 +35,9 @@ namespace PacManDuel.Models
             Directory.CreateDirectory(folderPath);
             Directory.CreateDirectory(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingReplayFolder);
             var logFile = new StreamWriter(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingMatchLogFileName);
+            CreateIterationStateFile(folderPath);
             logFile.WriteLine("[GAME] : Match started");
+            _iteration++;
             while (gameOutcome == Enums.GameOutcome.ProceedToNextRound)
             {
                 _currentPlayer = _playerPool.GetNextPlayer();
@@ -152,7 +154,7 @@ namespace PacManDuel.Models
                 new StreamWriter(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingReplayFolder + System.IO.Path.DirectorySeparatorChar + "iteration" +
                                  _iteration + Properties.Settings.Default.SettingStateFileExtension);
             var mazeForFile = new Maze(_maze);
-            if (_secondMazePlayer == _currentPlayer.GetSymbol())
+            if ((_currentPlayer == null)||(_secondMazePlayer == _currentPlayer.GetSymbol()))
                 mazeForFile.SwapPlayerSymbols();
             replayFile.Write(mazeForFile.ToFlatFormatString());
             replayFile.Close();
