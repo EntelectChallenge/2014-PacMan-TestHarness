@@ -27,6 +27,13 @@ namespace PacManDuel.Helpers
                     currentPlayer.AddToScore(Properties.Settings.Default.SettingPointsPerBonusPill);
                     return Enums.TurnOutcome.MoveMadeBonusPointScoredAndDroppedPoisonPill;
                 }
+
+                if (IsMoveMadeAndDiedFromPoisonPill(previousMaze, currentPosition)) 
+                {
+                    currentMaze.SetSymbol(currentPosition.X, currentPosition.Y, Symbols.SYMBOL_EMPTY);
+                    currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_A);
+                    return Enums.TurnOutcome.MoveMadeDroppedPoisonPillAndDiedFromPoisonPill;
+                }
                 return Enums.TurnOutcome.MoveMadeAndDroppedPoisonPill;
             }
 
