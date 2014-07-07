@@ -64,6 +64,7 @@ namespace PacManDuel.Helpers
         private static IEnumerable<Point> GetPossibleMoves(Maze previousMaze)
         {
             var previousCoordinate = previousMaze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
+            var opponentCoordinate = previousMaze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_B);
             var moveList = new List<Point>();
             // Right
             if (previousCoordinate.Y + 1 < Properties.Settings.Default.MazeWidth)
@@ -80,13 +81,19 @@ namespace PacManDuel.Helpers
             // Down
             if (previousCoordinate.X + 1 < Properties.Settings.Default.MazeHeight)
                 if (previousMaze.GetSymbol(previousCoordinate.X + 1, previousCoordinate.Y) != Symbols.SYMBOL_WALL &&
-                    !WasInRespawnEntranceA(previousCoordinate.X, previousCoordinate.Y))
+                    !WasInRespawnEntranceA(previousCoordinate.X, previousCoordinate.Y) && 
+                    !WasInRespawnPoint(previousCoordinate.X + 1, previousCoordinate.Y) &&
+                    // Opponent cannot be eaten while in the respawn zone.
+                    (!WasInRespawnZone(opponentCoordinate.X, opponentCoordinate.Y) || previousCoordinate.Y!=opponentCoordinate.Y || previousCoordinate.X + 1!=opponentCoordinate.X))
                     moveList.Add(new Point(previousCoordinate.X + 1, previousCoordinate.Y));
 
             // Up
             if (previousCoordinate.X - 1 >= 0)
                 if (previousMaze.GetSymbol(previousCoordinate.X - 1, previousCoordinate.Y) != Symbols.SYMBOL_WALL &&
-                    !WasInRespawnEntranceB(previousCoordinate.X, previousCoordinate.Y))
+                    !WasInRespawnEntranceB(previousCoordinate.X, previousCoordinate.Y) &&
+                    !WasInRespawnPoint(previousCoordinate.X - 1, previousCoordinate.Y) &&
+                    // Opponent cannot be eaten while in the respawn zone.
+                    (!WasInRespawnZone(opponentCoordinate.X, opponentCoordinate.Y) || previousCoordinate.Y!=opponentCoordinate.Y || previousCoordinate.X - 1!=opponentCoordinate.X))
                     moveList.Add(new Point(previousCoordinate.X - 1, previousCoordinate.Y));
 
             // Wrap right
