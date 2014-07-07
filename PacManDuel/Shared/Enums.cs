@@ -21,7 +21,8 @@
             MoveMadeAndDroppedPoisonPillIllegally = 5,
             MoveMadeAndBonusPointScored = 6,
             MoveMadePointScoredAndDroppedPoisonPill = 7,
-            MoveMadeBonusPointScoredAndDroppedPoisonPill = 8
+            MoveMadeBonusPointScoredAndDroppedPoisonPill = 8,
+            MoveMadeDroppedPoisonPillAndDiedFromPoisonPill = 9
         }
 
         public enum GameOutcome
