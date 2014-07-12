@@ -106,16 +106,7 @@ namespace PacManDuel.Models
                 _maze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, _secondMazePlayer);
             }
             if (gameOutcome != Enums.GameOutcome.ProceedToNextRound)
-            {
-                if (gameOutcome == Enums.GameOutcome.NoScoringMaxed)
-                {
-                    winner = _playerPool.GetNextPlayer();
-                }
-                else
-                {
-                    winner = GameJudge.DetermineWinner(_playerPool);
-                }
-            }
+                winner = GameJudge.DetermineWinner(_playerPool, gameOutcome);
             return winner;
         }
 
