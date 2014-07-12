@@ -34,6 +34,11 @@ namespace PacManDuel.Helpers
                     currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_A);
                     return Enums.TurnOutcome.MoveMadeDroppedPoisonPillAndDiedFromPoisonPill;
                 }
+                if (IsMoveMadeAndKilledOpponent(currentPosition, opponentPosition))
+                {
+                    currentMaze.SetSymbol(Properties.Settings.Default.MazeCenterX, Properties.Settings.Default.MazeCenterY, Symbols.SYMBOL_PLAYER_B);
+                    return Enums.TurnOutcome.MoveMadeDroppedPoisonPillAndKilledOpponent;
+                }
                 return Enums.TurnOutcome.MoveMadeAndDroppedPoisonPill;
             }
 
