@@ -50,7 +50,8 @@ namespace PacManDuel.Models
                         var opponentPosition = _maze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_B);
                         var previousPosition = _maze.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
                         var currentPosition = mazeFromPlayer.FindCoordinateOf(Symbols.SYMBOL_PLAYER_A);
-                        var turnOutcome = GetTurnOutcome(mazeFromPlayer, currentPosition, previousPosition, opponentPosition, logFile);
+                        var turnOutcome = GetTurnOutcome(mazeFromPlayer, currentPosition, previousPosition,
+                            opponentPosition, logFile);
                         if (turnOutcome != Enums.TurnOutcome.MoveMadeAndDroppedPoisonPillIllegally)
                         {
                             RegenerateOpponentIfDead(opponentPosition, mazeFromPlayer);
@@ -58,18 +59,23 @@ namespace PacManDuel.Models
                             winner = DeterminIfWinner(gameOutcome, mazeFromPlayer, winner);
                         }
                         else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
-                    }
-                    else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
 
-                    _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingGamePlayFile);
-                    Maze iterationFileMaze = CreateIterationStateFile(folderPath);
-                    _iteration++;
-                    foreach (var player in _playerPool.GetPlayers())
-                    {
-                        Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() + "  ");
+                        _maze.WriteMaze(gamePlayDirectoryPath + System.IO.Path.DirectorySeparatorChar +
+                                        Properties.Settings.Default.SettingGamePlayFile);
+                        Maze iterationFileMaze = CreateIterationStateFile(folderPath);
+                        _iteration++;
+                        foreach (var player in _playerPool.GetPlayers())
+                        {
+                            Console.Write(player.GetSymbol() + "," + player.GetPlayerName() + ": " + player.GetScore() +
+                                          "  ");
+                        }
+                        Console.WriteLine();
+                        iterationFileMaze.Print();
                     }
-                    Console.WriteLine();
-                    iterationFileMaze.Print();
+                    else
+                    {
+                        gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
+                    }
                 }
                 else gameOutcome = ProcessIllegalMove(logFile, gameOutcome, ref winner);
             }
@@ -145,7 +151,7 @@ namespace PacManDuel.Models
                 new StreamWriter(folderPath + System.IO.Path.DirectorySeparatorChar + Properties.Settings.Default.SettingReplayFolder + System.IO.Path.DirectorySeparatorChar + "iteration" +
                                  _iteration + Properties.Settings.Default.SettingStateFileExtension);
             var mazeForFile = new Maze(_maze);
-            if ((_currentPlayer == null)||(_secondMazePlayer == _currentPlayer.GetSymbol()))
+            if (((_currentPlayer == null) || (_secondMazePlayer == _currentPlayer.GetSymbol())) && (_iteration > 0))
                 mazeForFile.SwapPlayerSymbols();
             replayFile.Write(mazeForFile.ToFlatFormatString());
             replayFile.Close();
