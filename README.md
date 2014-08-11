@@ -22,6 +22,8 @@ Thanks for your contributions:
 
 +rm2k
 
+NOTE: This release has been tested with the following test cases: http://bit.ly/1k9361I
+
 -----------------------
 Release Notes v1.9
 
